@@ -94,6 +94,18 @@ docker-compose pull
 docker-compose up -d
 ```
 
+### Run with Podman + systemd (no compose, no Quadlet)
+
+Works on podman 4.3 (Debian 12). Autostarts on boot.
+
+1. `sudo cp deploy/tgtg.service /etc/systemd/system/` (edit the `/mnt/usb/tgtg` path if needed)
+2. `cp deploy/tgtg.env.sample tgtg.env && chmod 600 tgtg.env`, then fill in the values
+3. `sudo systemctl daemon-reload && sudo systemctl start tgtg && journalctl -fu tgtg`
+4. On first login open `http://<host-ip>:3000` and enter the PIN from the email
+5. `sudo systemctl enable tgtg`
+
+Tokens persist in the `tgtg_tokens` podman volume.
+
 ### Install as package
 
 1. Install Git, Python>=3.10 and pip

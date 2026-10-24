@@ -21,3 +21,5 @@ out.toml
 out.yaml
 dev.py
 compose.yml
+tgtg.env
+tokens/

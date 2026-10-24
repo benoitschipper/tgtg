@@ -1,0 +1,20 @@
+[Unit]
+Description=TGTG scanner
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/mnt/usb
+# Stop retry loops: repeated failed logins (403) can get the IP blocked longer.
+StartLimitIntervalSec=3600
+StartLimitBurst=3
+
+[Service]
+Restart=on-failure
+RestartSec=30
+ExecStartPre=-/usr/bin/podman rm -f tgtg
+ExecStart=/usr/bin/podman run --rm --name tgtg --pull=newer \
+  --env-file /mnt/usb/tgtg/tgtg.env -p 3000:3000 \
+  -v tgtg_tokens:/tokens docker.io/derhenning/tgtg:latest-alpine
+ExecStop=/usr/bin/podman stop -t 10 tgtg
+
+[Install]
+WantedBy=multi-user.target
