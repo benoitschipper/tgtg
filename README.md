@@ -106,6 +106,18 @@ Works on podman 4.3 (Debian 12). Autostarts on boot.
 
 Tokens persist in the `tgtg_tokens` podman volume.
 
+#### Login fails with 403 (DataDome): wait 24 hours
+
+Every retry can extend the block, so stop everything and do not retry early.
+
+1. `sudo systemctl stop tgtg`
+2. Check it is stopped and will not come back after a reboot. Expect `inactive`, `disabled` and an empty container list:
+   `systemctl is-active tgtg; systemctl is-enabled tgtg; sudo podman ps -a`
+3. Do not run `systemctl enable tgtg` yet, and do not start the scanner anywhere else (Mac, phone hotspot) from the same account.
+4. After 24 hours run `sudo systemctl start tgtg && journalctl -fu tgtg` once.
+5. Open `http://<host-ip>:3000` and enter the PIN from the email.
+6. If it logs in, run `sudo systemctl enable tgtg`. If it still returns 403, run `sudo systemctl stop tgtg` and wait another 24 hours.
+
 ### Install as package
 
 1. Install Git, Python>=3.10 and pip
