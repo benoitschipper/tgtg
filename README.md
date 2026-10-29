@@ -94,6 +94,27 @@ docker-compose pull
 docker-compose up -d
 ```
 
+### Manually retreive token
+
+```
+brew install python@3.13
+rm -rf /tmp/tgtgvenv
+"$(brew --prefix)/bin/python3.13" -m venv /tmp/tgtgvenv
+. /tmp/tgtgvenv/bin/activate
+python --version
+cd /Users/benoitschipper/Projects/forks/tgtg && pip install .
+mkdir -p /tmp/tgtgrun && cd /tmp/tgtgrun
+TGTG_USERNAME='benoitwdc@gmail.com' PORT=3000 scanner --tokens
+(tgtgvenv) 
+```
+
+Then Add location vars to `/mnt/usb/tgtg/tgtg.env` 
+```
+TGTG_ACCESS_TOKEN=...
+TGTG_REFRESH_TOKEN=...
+TGTG_DATADOME=...
+```
+
 ### Run with Podman + systemd (no compose, no Quadlet)
 
 Works on podman 4.3 (Debian 12). Autostarts on boot.
