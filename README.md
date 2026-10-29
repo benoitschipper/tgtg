@@ -96,6 +96,8 @@ docker-compose up -d
 
 ### Manually retreive token
 
+Tip: Adjust sleeptime accordingly, default 60s
+
 ```
 brew install python@3.13
 rm -rf /tmp/tgtgvenv
@@ -104,8 +106,7 @@ rm -rf /tmp/tgtgvenv
 python --version
 cd /Users/benoitschipper/Projects/forks/tgtg && pip install .
 mkdir -p /tmp/tgtgrun && cd /tmp/tgtgrun
-TGTG_USERNAME='benoitwdc@gmail.com' PORT=3000 scanner --tokens
-(tgtgvenv) 
+TGTG_USERNAME='benoitwdc@gmail.com' SLEEP_TIME=100 PORT=3000 scanner --tokens
 ```
 
 Then Add location vars to `/mnt/usb/tgtg/tgtg.env` 
